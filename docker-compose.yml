@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  nginx:
+    hostname: dad-lore-nginx
+    container_name: dad-lore-nginx
+    restart: unless-stopped
+    build:
+      context: ./nginx/
+    ports:
+      - $NGINX_PORT:80
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html
+    depends_on:
+      - backend
+      - frontend
+  backend:
+    hostname: dad-lore-backend
+    container_name: dad-lore-backend
+    restart: unless-stopped
+    build:
+      context: ./backend/
+      target: $BUILD_TYPE
+    environment:
+      DB_NAME: $DB_NAME
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+    volumes:
+      - ./backend/src:/usr/dad-lore/backend/src
+    depends_on:
+      - db
+  frontend:
+    container_name: dad-lore-frontend-$BUILD_TYPE
+    restart: no
+    build:
+      context: ./frontend/
+      target: $BUILD_TYPE
+    volumes:
+      - ./frontend/src:/usr/dad-lore/frontend/src
+      - ./frontend/dist:/usr/dad-lore/frontend/dist
+  db:
+    hostname: dad-lore-db
+    container_name: dad-lore-db
+    restart: unless-stopped
+    build:
+      context: ./db/
+    environment:
+      MARIADB_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MARIADB_DATABASE: $DB_NAME
+      MARIADB_USER: $DB_USER
+      MARIADB_PASSWORD: $DB_PASSWORD
+    volumes:
+      - ./db/data:/var/lib/mysql

@@ -1,0 +1,30 @@
+{
+    "name": "dad-lore-backend",
+    "version": "0.0.0",
+    "description": "dad-lore-backend",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no implemented\"",
+        "watch": "nodemon -e ts --watch ./src --exec \"npm run start\"",
+        "check": "tsc",
+        "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist --packages=external --format=esm",
+        "start": "npm run check; npm run build && node dist/index.js",
+        "format": "prettier src --write"
+    },
+    "keywords": [],
+    "author": "Meilky",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^20.10.5",
+        "nodemon": "^3.0.2",
+        "prettier": "^3.1.1",
+        "typescript": "^5.3.3",
+        "esbuild": "^0.19.10"
+    },
+    "dependencies": {
+        "@apollo/server": "^4.9.5",
+        "express": "^4.18.2",
+        "graphql": "^16.8.1",
+        "mariadb": "^3.2.3"
+    }
+}
