@@ -3,15 +3,7 @@
 ## Setup
 
 ```bash
-cp .env.template .env
-
-cd frontend
-npm i
-cd ..
-
-cd backend
-npm i
-cd ..
+./setup.sh
 ```
 
 ## Build
