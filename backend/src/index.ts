@@ -50,4 +50,4 @@ APP.use(
 
 await new Promise<void>((resolve) => HTTP_SERVER.listen({ port: 3000 }, resolve));
 
-console.log(`Backend his ready!!!`);
+console.log(`Backend is ready!!!`);
